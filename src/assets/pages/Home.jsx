@@ -3,10 +3,20 @@ import "swiper/css";
 
 export default function Home() {
   return (
-    <Swiper style={{ height: "300px", background: "#eee" }}>
-  <SwiperSlide style={{ background: "red" }}>Slide 1</SwiperSlide>
-  <SwiperSlide style={{ background: "blue" }}>Slide 2</SwiperSlide>
-  <SwiperSlide style={{ background: "green" }}>Slide 3</SwiperSlide>
-</Swiper>
+    <div className="w-full h-[300px]">
+      <Swiper className="w-full h-full">
+        <SwiperSlide className="bg-red-500 flex items-center justify-center text-white text-2xl">
+          Slide 1
+        </SwiperSlide>
+
+        <SwiperSlide className="bg-blue-500 flex items-center justify-center text-white text-2xl">
+          Slide 2
+        </SwiperSlide>
+
+        <SwiperSlide className="bg-green-500 flex items-center justify-center text-white text-2xl">
+          Slide 3
+        </SwiperSlide>
+      </Swiper>
+    </div>
   );
 }
