@@ -109,9 +109,9 @@ export default function Footer() {
 
         {/* Policies */}
         <div className="flex items-center gap-4">
-          <a href="#" className="hover:text-white transition-colors">Return policy</a>
-          <a href="#" className="hover:text-white transition-colors">Privacy policy</a>
-          <a href="#" className="hover:text-white transition-colors">Payment policy</a>
+          <a href="/pages/refund-policy" className="hover:text-white transition-colors">Return policy</a>
+          <a href="/pages/privacy-policy" className="hover:text-white transition-colors">Privacy policy</a>
+          <a href="/pages/payment-policy" className="hover:text-white transition-colors">Payment policy</a>
         </div>
       </div>
     </footer>

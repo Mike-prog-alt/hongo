@@ -12,23 +12,51 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-4">
- <a href="#" className="flex items-center gap-2 font-bold text-xl text-gray-900 tracking-tight">
+ <a href="/" className="flex items-center gap-2 font-bold text-xl text-gray-900 tracking-tight">
   <img src={logo} alt="Hongo logo" className="w-32 h-auto object-contain" />
 </a>
 
           <div className="h-6 w-px bg-gray-300 mx-2" />
 
          <nav className="hidden md:flex items-center gap-1">
-  {navLinks.map((link) => (
-    <a
-      key={link}
+     
+             <a
+      
+      href="/pages/shop"
+      className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 font-medium transition-colors duration-150 rounded hover:bg-gray-100"
+    >
+      Shop
+    </a>
+            <a
+     
+      href="#"
+      className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 font-medium transition-colors duration-150 rounded hover:bg-gray-100"
+    >Trending
+      
+    </a>
+            <a
+     
       href="#"
       className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 font-medium transition-colors duration-150 rounded hover:bg-gray-100"
     >
-      {link}
+      About
     </a>
-  ))}
-</nav>
+            <a
+     
+      href="#"
+      className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 font-medium transition-colors duration-150 rounded hover:bg-gray-100"
+    >
+      Blog
+    </a>
+            <a
+     
+      href="#"
+      className="px-3 py-2 text-sm text-gray-700 hover:text-gray-900 font-medium transition-colors duration-150 rounded hover:bg-gray-100"
+    >
+        Contact
+      
+    </a>
+        </nav>
         </div>
 
         {/* Right Icons */}
