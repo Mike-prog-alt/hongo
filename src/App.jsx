@@ -7,6 +7,7 @@ import Refund from "./pages/RefundPolicy";
 import Privacy from "./pages/PrivacyPolicy";
 import Shop from "./pages/Shop";
 import Payment from "./pages/Paymentpolicy";
+import Collections from "./pages/Collections";
 
 export default function App() {
   // useEffect(() => {
@@ -76,6 +77,7 @@ export default function App() {
           <Route path="/pages/privacy-policy" element={<Privacy />} />
           <Route path="/pages/shop" element={<Shop/>}/>
           <Route path="/pages/payment-policy" element={<Payment/>}/>
+          <Route path="/collections" element={<Collections/>}/>
 
 
 
