@@ -1,111 +1,65 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
-const item = {
-  hidden: { y: 140, opacity: 0 },
-  show: (delay = 0) => ({
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 1.8,
-      delay,
-      ease: [0.25, 1, 0.5, 1],
-    },
-  }),
-};
-
 export default function Hero({ slides }) {
-  const [active, setActive] = useState(0);
+  const [animTick, setAnimTick] = useState(0);
 
   return (
     <Swiper
       modules={[Autoplay, Navigation]}
       loop={true}
-      speed={1000}
+      speed={1500}
       autoplay={{ delay: 5000, disableOnInteraction: false }}
-      onSlideChange={(swiper) => setActive(swiper.realIndex)}
-      className="w-full h-screen cursor-none"
+      onSlideChange={() => setAnimTick((tick) => tick + 1)}
+      className="h-screen w-full cursor-none"
     >
       {slides.map((s, i) => (
-        <SwiperSlide key={i} className="relative w-full h-screen overflow-hidden">
-
-          {/* BACKGROUND */}
+        <SwiperSlide key={i} className="relative h-screen w-full overflow-hidden">
           <img
             src={s.img}
-            className="absolute inset-0 w-full h-full object-cover scale-110"
+            alt=""
+            className="absolute inset-0 h-full w-full scale-110 object-cover"
           />
-          <div className="absolute inset-0 bg-black/40" />
 
-          {/* TEXT (no gap, replays animation each slide) */}
-          <motion.div
-            key={active}
-            className="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-6 overflow-hidden"
+          <div
+            key={animTick}
+            className="slide-animation fade-in-up relative z-10 mx-auto flex h-full w-full max-w-[1710px] flex-col items-start justify-center px-[15px] text-left md:px-10 lg:px-[60px]"
           >
+            <div className="overflow-hidden">
+              <p className="mb-8 font-urbanist text-[10px] tracking-[0.6em] text-[#251f1d] md:text-xs">
+                {s.tag}
+              </p>
+            </div>
 
-            <motion.p
-              custom={0}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="tracking-[0.6em] text-[10px] md:text-xs text-white/60 mb-8 uppercase"
-            >
-              {s.tag}
-            </motion.p>
+            <div className="overflow-hidden">
+              <h1 className="font-urbanist text-6xl leading-[0.9] text-[#251f1d] md:text-8xl">
+                {s.title[0]}
+              </h1>
+            </div>
 
-            <motion.h1
-              custom={0.25}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="text-6xl md:text-8xl font-light uppercase leading-[0.9]"
-            >
-              {s.title[0]}
-            </motion.h1>
+            <div className="overflow-hidden">
+              <h1 className="font-urbanist text-6xl italic leading-[0.9] text-[#251f1d] md:text-8xl">
+                {s.title[1]}
+              </h1>
+            </div>
 
-            <motion.h1
-              custom={0.5}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="text-6xl md:text-8xl font-light italic leading-[0.9]"
-            >
-              {s.title[1]}
-            </motion.h1>
+            <div className="overflow-hidden">
+              <p className="mt-8 max-w-sm font-urbanist text-sm uppercase leading-7 tracking-[0.15em] text-[#251f1d]">
+                {s.sub}
+              </p>
+            </div>
 
-            <motion.div
-              custom={0.8}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="mt-8 w-px h-12 bg-white/20"
-            />
-
-            <motion.p
-              custom={1.1}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              className="mt-8 text-sm text-white/60 max-w-sm tracking-[0.15em] leading-7 uppercase"
-            >
-              {s.sub}
-            </motion.p>
-
-            <motion.a
-              custom={1.4}
-              href="/collections"
-              variants={item}
-              initial="hidden"
-              animate="show"
-              
-              className="mt-12 border border-white/30 px-10 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition "
-            >
-              Shop collections
-            </motion.a>
-
-          </motion.div>
-
+            <div className="overflow-hidden">
+              <a
+                href="/collections"
+                className="mt-12 inline-flex cursor-pointer items-center gap-3 border border-[#251f1d]/30 bg-[#251f1d] px-10 py-4 font-urbanist text-[10px] tracking-[0.4em] text-white transition hover:bg-black"
+              >
+                <span>Shop collections</span>
+                <i className="feather-arrow-right text-[14px]" />
+              </a>
+            </div>
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

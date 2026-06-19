@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, useLocation } from "react-router";
 import Home from "./pages/Home";
 import Refund from "./pages/RefundPolicy";
 import Privacy from "./pages/PrivacyPolicy";
@@ -11,6 +11,9 @@ import Payment from "./pages/Paymentpolicy";
 import Collections from "./pages/Collections";
 
 export default function App() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   // useEffect(() => {
 
   //   const originalTitle = "Hongo Shopify theme - modern, multipurpose and feature-rich";
@@ -71,7 +74,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1">
+      <main className={`flex-1 ${isHome ? "" : "pt-[73px]"}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pages/refund-policy" element={<Refund />} />

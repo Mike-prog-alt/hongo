@@ -9,18 +9,32 @@ export default function SwiperCursor() {
 
     const move = (e) => {
       setPos({ x: e.clientX, y: e.clientY });
+      if (!swiper) return;
+
+      const rect = swiper.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
+      if (!inside) {
+        setActive(false);
+        return;
+      }
+
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      const overLink = el?.closest("a");
+      setActive(!overLink);
     };
 
-    const enter = () => setActive(true);
     const leave = () => setActive(false);
 
     window.addEventListener("mousemove", move);
-    swiper?.addEventListener("mouseenter", enter);
     swiper?.addEventListener("mouseleave", leave);
 
     return () => {
       window.removeEventListener("mousemove", move);
-      swiper?.removeEventListener("mouseenter", enter);
       swiper?.removeEventListener("mouseleave", leave);
     };
   }, []);

@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { supabase } from "../../backend/supabase";
+import {
+  categoryIdsForGender,
+  normalizeGender,
+  shopGenders,
+} from "../utils/bagsCategory";
 
 export default function Shop() {
   const [searchParams] = useSearchParams();
   const collectionId = searchParams.get("collection");
+  const categoryId = searchParams.get("category");
+  const genderParam = searchParams.get("gender");
+  const normalizedGender = normalizeGender(genderParam);
+  const gender = shopGenders.includes(normalizedGender) ? normalizedGender : null;
 
   const [bags, setBags] = useState([]);
   const [collectionName, setCollectionName] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,6 +45,25 @@ export default function Shop() {
         setCollectionName(null);
       }
 
+      if (categoryId) {
+        const { data: category, error: categoryError } = await supabase
+          .from("bags_category")
+          .select("category")
+          .eq("id", categoryId)
+          .maybeSingle();
+
+        if (!cancelled) {
+          if (categoryError) {
+            console.error("Error fetching category:", categoryError);
+            setCategoryName(null);
+          } else {
+            setCategoryName(category?.category ?? null);
+          }
+        }
+      } else if (!cancelled) {
+        setCategoryName(null);
+      }
+
       let query = supabase.from("bags").select(`
         id,
         name,
@@ -49,6 +78,28 @@ export default function Shop() {
 
       if (collectionId) {
         query = query.eq("collection_id", Number(collectionId));
+      }
+
+      if (categoryId) {
+        query = query.eq("category_id", categoryId);
+      } else if (gender) {
+        const { data: genderCategories, error: genderError } = await supabase
+          .from("bags_category")
+          .select("id, gender");
+
+        if (genderError) {
+          console.error("Error fetching categories for gender:", genderError);
+        } else {
+          const categoryIds = categoryIdsForGender(genderCategories ?? [], gender);
+          if (categoryIds.length === 0) {
+            if (!cancelled) {
+              setBags([]);
+              setLoading(false);
+            }
+            return;
+          }
+          query = query.in("category_id", categoryIds);
+        }
       }
 
       const { data, error } = await query;
@@ -69,7 +120,18 @@ export default function Shop() {
     return () => {
       cancelled = true;
     };
-  }, [collectionId]);
+  }, [collectionId, categoryId, gender]);
+
+  const pageTitle =
+    collectionName ??
+    categoryName ??
+    (gender === "man"
+      ? "Man"
+      : gender === "women"
+        ? "Women"
+        : gender === "brand"
+          ? "Brand"
+          : "Shop");
 
   return (
     <div className="bg-white px-[15px] py-12 font-[Jost,sans-serif] md:py-16">
@@ -86,11 +148,15 @@ export default function Shop() {
               </Link>
             )}
             <h1 className="text-[38px] font-medium tracking-[-1px] text-[#262626] md:text-[45px]">
-              {collectionName ?? "Shop"}
+              {pageTitle}
             </h1>
-            {collectionId && (
+            {(collectionId || categoryId || gender) && (
               <p className="mt-2 text-[16px] text-[#808080]">
-                Products from this collection only
+                {collectionId
+                  ? "Products from this collection only"
+                  : categoryId
+                    ? "Products from this category only"
+                    : "Products from this section only"}
               </p>
             )}
           </div>
@@ -102,7 +168,11 @@ export default function Shop() {
           <p className="text-[16px] text-[#808080]">
             {collectionId
               ? "No products in this collection yet."
-              : "No products found."}
+              : categoryId
+                ? "No products in this category yet."
+                : gender
+                  ? "No products in this section yet."
+                  : "No products found."}
           </p>
         )}
 
