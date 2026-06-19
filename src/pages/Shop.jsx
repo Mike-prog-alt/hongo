@@ -111,7 +111,11 @@ export default function Shop() {
             const mainImage = bag.bag_images?.find((img) => img.is_main === true);
 
             return (
-              <article key={bag.id} className="group text-center">
+              <Link
+                key={bag.id}
+                to={`/products/${bag.id}${collectionId ? `?collection=${collectionId}` : ""}`}
+                className="group block text-center"
+              >
                 <div className="mb-4 overflow-hidden bg-[#f7f7f7]">
                   {mainImage ? (
                     <img
@@ -128,7 +132,7 @@ export default function Shop() {
                 </div>
                 <h2 className="mb-1 text-[18px] font-medium text-[#262626]">{bag.name}</h2>
                 <p className="text-[16px] text-[#262626]">{bag.price} €</p>
-              </article>
+              </Link>
             );
           })}
         </div>

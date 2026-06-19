@@ -98,7 +98,8 @@ export default function Hero({ slides }) {
               variants={item}
               initial="hidden"
               animate="show"
-              className="mt-12 border border-white/30 px-10 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition"
+              
+              className="mt-12 border border-white/30 px-10 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition "
             >
               Shop collections
             </motion.a>
