@@ -26,7 +26,7 @@ export default function Hero({ slides }) {
       speed={1000}
       autoplay={{ delay: 5000, disableOnInteraction: false }}
       onSlideChange={(swiper) => setActive(swiper.realIndex)}
-      className="w-full h-screen"
+      className="w-full h-screen cursor-none"
     >
       {slides.map((s, i) => (
         <SwiperSlide key={i} className="relative w-full h-screen overflow-hidden">

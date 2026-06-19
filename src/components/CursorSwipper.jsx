@@ -34,7 +34,7 @@ export default function SwiperCursor() {
              bg-[#1c1c1c]/90 backdrop-blur-md
              border border-white/20
              flex items-center justify-center
-             shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+             shadow-[0_10px_30px_rgba(0,0,0,0.25)] "
   style={{
     transform: `translate3d(${pos.x - 36}px, ${pos.y - 36}px, 0)`,
   }}
