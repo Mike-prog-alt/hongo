@@ -94,12 +94,13 @@ export default function Hero({ slides }) {
 
             <motion.a
               custom={1.4}
+              href="/collections"
               variants={item}
               initial="hidden"
               animate="show"
               className="mt-12 border border-white/30 px-10 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition"
             >
-              Discover
+              Shop collections
             </motion.a>
 
           </motion.div>
