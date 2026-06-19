@@ -5,6 +5,37 @@ import "swiper/css/navigation";
 import SwiperCursor from "../components/CursorSwipper";
 import Marquee from "../components/Marquee";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
+import Swipper from "../components/Swipper"
+const item = {
+
+  hidden: {
+
+    y: 140,
+
+    opacity: 0,
+
+  },
+
+  show: (delay = 0) => ({
+
+    y: 0,
+
+    opacity: 1,
+
+    transition: {
+
+      duration: 1.8,
+
+      delay,
+
+      ease: [0.25, 1, 0.5, 1],
+
+    },
+
+  }),
+
+};
 const slides = [
   {
     img: "https://hongotheme.myshopify.com/cdn/shop/files/demo-leather-slider-01.jpg?v=1678447214&width=3840",
@@ -114,54 +145,7 @@ export default function Home() {
       {/* ── HERO SWIPER ── */}
       <div className="h-screen relative">
         <SwiperCursor />
-
-        <Swiper
-          className="w-full h-screen cursor-none"
-          modules={[Autoplay, Navigation]}
-          loop={true}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          speed={1000}
-        >
-          {slides.map((s, i) => (
-            <SwiperSlide key={i} className="relative w-full h-screen overflow-hidden bg-[#1c1c1c]">
-              <img
-                className="absolute inset-0 w-full h-full object-cover scale-110 transition-transform duration-[8000ms] ease-out"
-                src={s.img}
-                alt={s.title.join(" ")}
-              />
-              <div className="absolute inset-0 bg-black/35" />
-
-              <div className="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-6">
-                <p className="tracking-[0.5em] text-[10px] md:text-xs opacity-60 mb-6 uppercase">
-                  {s.tag}
-                </p>
-
-                <h1 className="text-6xl md:text-8xl font-light tracking-wide uppercase leading-none">
-                  {s.title[0]} <br />
-                  <span className="italic">{s.title[1]}</span>
-                </h1>
-
-                <div className="mt-6 w-px h-10 bg-white/30 mx-auto" />
-
-                <p className="mt-6 text-sm opacity-60 max-w-xs mx-auto tracking-wide leading-relaxed">
-                  {s.sub}
-                </p>
-
-                <a
-                  href="#"
-                  className="mt-10 inline-block border border-white/30 px-10 py-3 text-[10px] tracking-[0.4em] uppercase hover:bg-white hover:text-black transition-all duration-300"
-                >
-                  Discover
-                </a>
-              </div>
-
-              {/* slide number */}
-              <span className="absolute bottom-8 right-10 text-white/30 text-xs tracking-widest z-10">
-                0{i + 1} / 0{slides.length}
-              </span>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+       <Swipper slides={slides} />
       </div>
 
       {/* ── INTRO TEXT ── */}

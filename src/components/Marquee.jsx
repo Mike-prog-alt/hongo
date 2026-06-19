@@ -14,11 +14,13 @@ export default function Marquee() {
         {[...items, ...items].map((item, i) => (
           <>
             {item.type === "filled" ? (
-              <span key={i} className="text-4xl font-light text-[#af6f3d] whitespace-nowrap">
-                {item.text}
-              </span>
+             <span className="font-urbanist text-[60px] font-normal text-[#af6f3d] whitespace-nowrap">
+
+  {item.text}
+
+</span>
             ) : (
-              <span key={i} className="text-6xl font-bold text-transparent [-webkit-text-stroke:1.5px_#af6f3d] whitespace-nowrap">
+              <span key={i} className="text-6xl font-urbanist text-transparent [-webkit-text-stroke:1.5px_#af6f3d] whitespace-nowrap">
                 {item.text}
               </span>
             )}
